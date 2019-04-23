@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Cuisine Prediction{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{url_for('static', filename='main.js')}}"></script>
+{% endblock %}
+
+{% block page_content %}
+
+    <p>Enter a list of ingredients in the space below and press submit.</p>
+    <p>The app will make a prediction on the type of cuisine the ingredients are for.</p>
+    <p>Current learned cuisines are Brazilian, British, Cajun Creole, Chinese, Filipino, French, Greek, Indian, Irish, Italian, Jamaican, Japanese, Korean, Mexican, Moroccan, Russian, Southern US, Spanish, Thai, Vietnamese</p>
+
+    <div class="alert alert-info alert-dismissible" id="cuisine_prediction_alert">
+        {% if pred_cuisine %}
+        <b>Predicted Cuisine: {{ pred_cuisine|capitalize }}!</b>
+        {% else %}
+        <b>Predicted Cuisine: </b>
+        {% endif %}
+    </div>
+    
+
+    {{ wtf.quick_form(form, button_map={'submit':'success'}) }}
+
+    <h3>Example recipes</h3>
+    <button type="button" class="btn btn-light" onclick="populateSteakHache()">Steak Hache</button>
+    <button type="button" class="btn btn-light" onclick="populateChickenBalti()">Chicken Balti</button>
+    <button type="button" class="btn btn-light" onclick="populateMargheritaPizza()">Margherita Pizza</button>
+    <button type="button" class="btn btn-light" onclick="populateChickenFajita()">Chicken Fajita</button>
+{% endblock %}
